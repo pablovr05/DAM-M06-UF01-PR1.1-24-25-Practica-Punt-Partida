@@ -1,16 +1,28 @@
 package com.project;
 
+import java.io.BufferedWriter; // Make sure to import this
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class PR113sobreescriu {
 
     public static void main(String[] args) {
-        // Definir el camí del fitxer dins del directori "data"
         String camiFitxer = System.getProperty("user.dir") + "/data/frasesMatrix.txt";
 
-        // Crida al mètode que escriu les frases sobreescrivint el fitxer
-        escriureFrases(camiFitxer);
+        try {
+            escriureFrases(camiFitxer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    // Mètode que escriu les frases sobreescrivint el fitxer amb UTF-8 i línia en blanc final
-    public static void escriureFrases(String camiFitxer) {
+    public static void escriureFrases(String filePath) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+            writer.write("I can only show you the door");
+            writer.newLine();
+            writer.write("You're the one that has to walk through it");
+            writer.newLine();
+        }
     }
 }
